@@ -30,6 +30,10 @@
 #include <linux/pm_opp.h>
 #include <linux/regulator/consumer.h>
 
+#ifdef VENDOR_EDIT //Cong.Dai@BSP.TP.Function, 2019/07/03, modified for replace daily build macro
+#include <soc/oppo/oppo_project.h>
+#endif /* VENDOR_EDIT */
+
 #include "clk.h"
 
 #if defined(CONFIG_COMMON_CLK)
@@ -3053,7 +3057,7 @@ void clock_debug_print_enabled(bool print_parent)
 {
 	if (likely(!debug_suspend))
 		return;
-
+		
 	if (print_parent)
 		clock_debug_print_enabled_clocks(NULL);
 	else
@@ -3121,6 +3125,11 @@ static int __init clk_debug_init(void)
 
 	inited = 1;
 	mutex_unlock(&clk_debug_lock);
+
+	#ifdef VENDOR_EDIT /*Cong.Dai@BSP.TP.Function, 2019/07/03, modified for replace daily build macro*/
+	if (oppo_daily_build())
+		debug_suspend = 1;
+	#endif/*VENDOR_EDIT*/
 
 	return 0;
 }
