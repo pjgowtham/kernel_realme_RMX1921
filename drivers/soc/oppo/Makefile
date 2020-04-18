@@ -4,11 +4,6 @@ obj-$(CONFIG_OPPO_DEBUG_ASSERT)	+=  oppo_trace/
 obj-$(CONFIG_RECORD_MDMRST)     +=  oppo_mdmrst/
 
 #ifdef VENDOR_EDIT
-#//long.gao@PSW.SH.HYPNUS, 2019/06/04, Add for hypnus
-obj-$(CONFIG_OPPO_HYPNUS)     +=  oppo_hypnus/
-#endif /* VENDOR_EDIT */
-
-#ifdef VENDOR_EDIT
 #//Chao.zeng@PSW.BSP.Sensor, 2019/08/20, Add for wise light
 obj-y     +=  oppo_als_cali_value/
 #endif /* VENDOR_EDIT */

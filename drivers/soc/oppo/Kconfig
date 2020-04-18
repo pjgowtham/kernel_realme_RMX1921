@@ -26,8 +26,6 @@ source "drivers/soc/oppo/oppo_devinfo/Kconfig"
 source "drivers/soc/oppo/oppo_trace/Kconfig"
 source "drivers/soc/oppo/oppo_mdmrst/Kconfig"
 
-source "drivers/soc/oppo/oppo_hypnus/Kconfig"
-
 #ifdef VENDOR_EDIT
 #//John.Xu@PhoneSw.AudioDriver, 2016/02/22, Add for critical_log
 #source "drivers/soc/oppo/oppo_criticallog/Kconfig"
