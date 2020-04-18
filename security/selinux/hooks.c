@@ -1685,7 +1685,6 @@ static int cred_has_capability(const struct cred *cred,
 		return -EINVAL;
 	}
 
-
 	rc = avc_has_perm_noaudit(sid, sid, sclass, av, 0, &avd);
 	if (audit == SECURITY_CAP_AUDIT) {
 		int rc2 = avc_audit(sid, sid, sclass, av, &avd, rc, &ad, 0);
@@ -6534,6 +6533,7 @@ void selinux_complete_init(void)
 	printk(KERN_DEBUG "SELinux:  Setting up existing superblocks.\n");
 	iterate_supers(delayed_superblock_init, NULL);
 }
+
 /* SELinux requires early initialization in order to label
    all processes and objects when they are created. */
 security_initcall(selinux_init);
