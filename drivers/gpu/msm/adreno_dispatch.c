@@ -24,7 +24,6 @@
 #include "adreno_trace.h"
 #include "kgsl_sharedmem.h"
 
-
 #define DRAWQUEUE_NEXT(_i, _s) (((_i) + 1) % (_s))
 
 /* Time in ms after which the dispatcher tries to schedule an unscheduled RB */
@@ -2070,6 +2069,11 @@ static void do_header_and_snapshot(struct kgsl_device *device, int fault,
 
 	/* Print the fault header */
 	adreno_fault_header(device, rb, cmdobj);
+
+
+	if (!(drawobj->context->flags & KGSL_CONTEXT_NO_SNAPSHOT))
+		kgsl_device_snapshot(device, drawobj->context,
+					fault & ADRENO_GMU_FAULT);
 
 }
 
