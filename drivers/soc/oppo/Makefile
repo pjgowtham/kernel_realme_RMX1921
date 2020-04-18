@@ -22,8 +22,3 @@ obj-y     +=  oppo_healthinfo/
 #wen.luo@PSW.Kernel.MM, 2018/05/23, Add for Healthinfo monitor
 obj-$(CONFIG_OPPO_SHUTDOWN_DETECT)	+=  oppo_shutdown_detect/
 #endif /* VENDOR_EDIT */
-
-#ifdefine VENDOR_EDIT
-#GaoTing.Gan@PSW.MultiMedia.MediaServer, 2019/03/07, Add for kevent feedback
-obj-y +=  oppo_kevent_feedback/
-#endif /* VENDOR_EDIT */

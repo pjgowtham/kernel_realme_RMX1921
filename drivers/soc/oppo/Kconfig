@@ -42,8 +42,3 @@ source "drivers/soc/oppo/oppo_healthinfo/Kconfig"
 #//Wen.Luo@BSP
 source "drivers/soc/oppo/oppo_shutdown_detect/Kconfig"
 #endif /* VENDOR_EDIT */
-
-#ifdef VENDOR_EDIT
-#GaoTing.Gan@PSW.MultiMedia.MediaServer, 2019/03/07, Add for kevent feedback
-source "drivers/soc/oppo/oppo_kevent_feedback/Kconfig"
-#endif /* VENDOR_EDIT */
