@@ -9,11 +9,6 @@ obj-y     +=  oppo_als_cali_value/
 #endif /* VENDOR_EDIT */
 
 #ifdef VENDOR_EDIT
-#//wenbin.liu@PSW.Kernel.MM, 2018/05/23, Add for Healthinfo monitor
-obj-y     +=  oppo_healthinfo/
-#endif /* VENDOR_EDIT */
-
-#ifdef VENDOR_EDIT
 #wen.luo@PSW.Kernel.MM, 2018/05/23, Add for Healthinfo monitor
 obj-$(CONFIG_OPPO_SHUTDOWN_DETECT)	+=  oppo_shutdown_detect/
 #endif /* VENDOR_EDIT */

@@ -32,11 +32,6 @@ source "drivers/soc/oppo/oppo_mdmrst/Kconfig"
 #endif /* VENDOR_EDIT */
 
 #ifdef VENDOR_EDIT
-#//wenbin.liu@PSW.Kernel.MM, 2018/05/23, Add for Healthinfo monitor
-source "drivers/soc/oppo/oppo_healthinfo/Kconfig"
-#endif /* VENDOR_EDIT */
-
-#ifdef VENDOR_EDIT
 #//Wen.Luo@BSP
 source "drivers/soc/oppo/oppo_shutdown_detect/Kconfig"
 #endif /* VENDOR_EDIT */
