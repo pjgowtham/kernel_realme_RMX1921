@@ -7,8 +7,3 @@ obj-$(CONFIG_RECORD_MDMRST)     +=  oppo_mdmrst/
 #//Chao.zeng@PSW.BSP.Sensor, 2019/08/20, Add for wise light
 obj-y     +=  oppo_als_cali_value/
 #endif /* VENDOR_EDIT */
-
-#ifdef VENDOR_EDIT
-#wen.luo@PSW.Kernel.MM, 2018/05/23, Add for Healthinfo monitor
-obj-$(CONFIG_OPPO_SHUTDOWN_DETECT)	+=  oppo_shutdown_detect/
-#endif /* VENDOR_EDIT */
