@@ -22,13 +22,7 @@ dts-dirs += qcom
 #dts-dirs += xilinx
 #dts-dirs += lg
 #dts-dirs += zte
-#else
-#dts-dirs += 18097
-#dts-dirs += 18621
-#dts-dirs += 19651
-#dts-dirs += 19691
-#dts-dirs += 18041
-#endif
+
 subdir-y	:= $(dts-dirs)
 
 dtstree		:= $(srctree)/$(src)
