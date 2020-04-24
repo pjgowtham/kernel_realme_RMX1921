@@ -14,7 +14,7 @@
 #dts-dirs += marvell
 #dts-dirs += mediatek
 #dts-dirs += nvidia
-#dts-dirs += qcom
+dts-dirs += qcom
 #dts-dirs += renesas
 #dts-dirs += rockchip
 #dts-dirs += socionext
@@ -24,10 +24,10 @@
 #dts-dirs += zte
 #else
 #dts-dirs += 18097
-dts-dirs += 18621
-dts-dirs += 19651
-dts-dirs += 19691
-dts-dirs += 18041
+#dts-dirs += 18621
+#dts-dirs += 19651
+#dts-dirs += 19691
+#dts-dirs += 18041
 #endif
 subdir-y	:= $(dts-dirs)
 
