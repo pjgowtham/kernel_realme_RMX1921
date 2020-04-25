@@ -1991,8 +1991,11 @@ int pid_revalidate(struct dentry *dentry, unsigned int flags)
 			inode->i_uid = GLOBAL_ROOT_UID;
 			inode->i_gid = GLOBAL_ROOT_GID;
 		}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of 9ed7504e7c66... Add FS modifications
 		inode->i_mode &= ~(S_ISUID | S_ISGID);
 		security_task_to_inode(task, inode);
 		put_task_struct(task);
@@ -3166,7 +3169,10 @@ static const struct pid_entry tgid_base_stuff[] = {
 	ONE("stat",       S_IRUGO, proc_tgid_stat),
 	ONE("statm",      S_IRUGO, proc_pid_statm),
 	REG("maps",       S_IRUGO, proc_pid_maps_operations),
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 9ed7504e7c66... Add FS modifications
 #ifdef CONFIG_NUMA
 	REG("numa_maps",  S_IRUGO, proc_pid_numa_maps_operations),
 #endif
@@ -3243,7 +3249,10 @@ static const struct pid_entry tgid_base_stuff[] = {
 #ifdef CONFIG_CPU_FREQ_TIMES
 	ONE("time_in_state", 0444, proc_time_in_state_show),
 #endif
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 9ed7504e7c66... Add FS modifications
 };
 
 static int proc_tgid_base_readdir(struct file *file, struct dir_context *ctx)
@@ -3636,7 +3645,6 @@ static const struct pid_entry tid_base_stuff[] = {
 #ifdef CONFIG_CPU_FREQ_TIMES
 	ONE("time_in_state", 0444, proc_time_in_state_show),
 #endif
-
 };
 
 static int proc_tid_base_readdir(struct file *file, struct dir_context *ctx)
