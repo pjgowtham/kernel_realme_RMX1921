@@ -2398,7 +2398,6 @@ static int __do_proc_dointvec(void *tbl_data, struct ctl_table *table,
 		*lenp = 0;
 		return 0;
 	}
-	
 	i = (int *) tbl_data;
 	vleft = table->maxlen / sizeof(*i);
 	left = *lenp;
