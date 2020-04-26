@@ -98,7 +98,6 @@ static struct kobj_attribute suspend_time = __ATTR_RO(last_suspend_time);
 static struct attribute *attrs[] = {
 	&resume_reason.attr,
 	&suspend_time.attr,
-	
 	NULL,
 };
 static struct attribute_group attr_group = {
