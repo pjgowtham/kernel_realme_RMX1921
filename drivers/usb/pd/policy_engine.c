@@ -3912,6 +3912,58 @@ static ssize_t get_battery_status_show(struct device *dev,
 }
 static DEVICE_ATTR_RW(get_battery_status);
 
+#ifdef VENDOR_EDIT /* wangsen@BSP.POWER.Basic 2019/11/07 add for pd charge */
+struct usbpd *pd_lobal;
+
+int usbpd_select_pdo(struct usbpd *pd, int pdo, int uv, int ua)
+{
+	int ret;
+
+	mutex_lock(&pd->swap_lock);
+
+	/* Only allowed if we are already in explicit sink contract */
+	if (pd->current_state != PE_SNK_READY || !is_sink_tx_ok(pd)) {
+		usbpd_err(&pd->dev, "select_pdo: Cannot select new PDO yet\n");
+		ret = -EBUSY;
+		goto out;
+	}
+
+	if (pdo < 1 || pdo > 7) {
+		usbpd_err(&pd->dev, "select_pdo: invalid PDO:%d\n", pdo);
+		ret = -EINVAL;
+		goto out;
+	}
+	usbpd_err(&pd->dev,"usbpd_select_pdo:%d, uv:%d, ua:%d\n", pdo, uv, ua);
+	ret = pd_select_pdo(pd, pdo, uv, ua);
+	if (ret)
+		goto out;
+
+	reinit_completion(&pd->is_ready);
+	pd->send_request = true;
+	kick_sm(pd, 0);
+
+	/* wait for operation to complete */
+	if (!wait_for_completion_timeout(&pd->is_ready,
+			msecs_to_jiffies(1000))) {
+		usbpd_err(&pd->dev, "select_pdo: request timed out\n");
+		ret = -ETIMEDOUT;
+		goto out;
+	}
+
+	/* determine if request was accepted/rejected */
+	if (pd->selected_pdo != pd->requested_pdo ||
+			pd->current_voltage != pd->requested_voltage) {
+		usbpd_err(&pd->dev, "select_pdo: request rejected\n");
+		ret = -EINVAL;
+	}
+
+out:
+	pd->send_request = false;
+	mutex_unlock(&pd->swap_lock);
+	return ret;
+}
+#endif /*VENDOR_EDIT*/
+
 static struct attribute *usbpd_attrs[] = {
 	&dev_attr_contract.attr,
 	&dev_attr_initial_pr.attr,
@@ -4199,6 +4251,10 @@ struct usbpd *usbpd_create(struct device *parent)
 
 	/* force read initial power_supply values */
 	psy_changed(&pd->psy_nb, PSY_EVENT_PROP_CHANGED, pd->usb_psy);
+
+#ifdef VENDOR_EDIT /* wangsen@BSP.POWER.Basic 2019/11/07 add for pd charge */
+	pd_lobal = pd;
+#endif
 
 	return pd;
 
