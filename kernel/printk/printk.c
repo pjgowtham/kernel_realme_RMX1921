@@ -60,6 +60,17 @@
 extern void printascii(char *);
 #endif
 
+#ifdef VENDOR_EDIT
+//Nanwei.Deng@BSP.CHG.Basic 2018/05/01,add for get disable uart value from cmdline
+/*Cong.Dai@BSP.TP.Function, 2019/07/03, modified for replace daily build macro*/
+bool printk_disable_uart = true;
+
+bool oem_get_uartlog_status(void)
+{
+	return !printk_disable_uart;
+}
+#endif /*VENDOR_EDIT*/
+
 int console_printk[4] = {
 	CONSOLE_LOGLEVEL_DEFAULT,	/* console_loglevel */
 	MESSAGE_LOGLEVEL_DEFAULT,	/* default_message_loglevel */

@@ -17,6 +17,10 @@
 #include <linux/seq_file.h>
 
 #include "power.h"
+#ifdef VENDOR_EDIT
+/*Cong.Dai@psw.bsp.tp, 2019/07/10, move interface to independent file */
+#include "oppo_attr_custom.h"
+#endif /*VENDOR_EDIT*/
 
 DEFINE_MUTEX(pm_mutex);
 
