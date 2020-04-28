@@ -54,12 +54,8 @@
 #define MAX_CPU_SCANDUMP_SIZE	0x10100
 
 static struct msm_watchdog_data *wdog_data;
-#ifndef VENDOR_EDIT
-/*fanhui@PhoneSW.BSP, 2016-06-22, use self-defined utils*/
+
 static int cpu_idle_pc_state[NR_CPUS];
-#else
-int cpu_idle_pc_state[NR_CPUS];
-#endif
 
 /*
  * user_pet_enable:
@@ -528,16 +524,10 @@ static irqreturn_t wdog_bark_handler(int irq, void *dev_id)
 	nanosec_rem = do_div(wdog_dd->last_pet, 1000000000);
 	dev_info(wdog_dd->dev, "Watchdog last pet at %lu.%06lu\n",
 			(unsigned long) wdog_dd->last_pet, nanosec_rem / 1000);
-	if (wdog_dd->do_ipi_ping) {
+	if (wdog_dd->do_ipi_ping)
 		dump_cpu_alive_mask(wdog_dd);
-	}
-#ifdef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/01/20, delete trigger wdog bite, panic will trigger wdog if in dload mode*/
-	panic("Handle a watchdog bite! - Falling back to kernel panic!");
-#else
 	msm_trigger_wdog_bite();
 	panic("Failed to cause a watchdog bite! - Falling back to kernel panic!");
-#endif
 	return IRQ_HANDLED;
 }
 
