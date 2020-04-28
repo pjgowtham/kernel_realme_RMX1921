@@ -243,6 +243,13 @@ static inline void unlock_anon_vma_root(struct anon_vma *root)
 		up_write(&root->rwsem);
 }
 
+#ifdef VENDOR_EDIT
+/*wanghao@BSP.Kernel.Function 2019/10/10 add for avoid apk recursive fork*/
+#define RECURSIVE_MAX_FORK_TIME 30
+int happend_times = 0;		//total recursive fork times
+pid_t fork_pid_child = 0;				//last time recursive fork pid
+pid_t fork_pid_father = 0;				//last time recursive fork ppid
+
 /*
  * Attach the anon_vmas from src to dst.
  * Returns 0 on success, -ENOMEM on failure.
@@ -303,7 +310,7 @@ int anon_vma_clone(struct vm_area_struct *dst, struct vm_area_struct *src)
 	unlink_anon_vmas(dst);
 	return -ENOMEM;
 }
-
+#endif
 /*
  * Attach vma to its own anon_vma, as well as to the anon_vmas that
  * the corresponding VMA in the parent process is attached to.
@@ -326,9 +333,23 @@ int anon_vma_fork(struct vm_area_struct *vma, struct vm_area_struct *pvma)
 	 * First, attach the new VMA to the parent VMA's anon_vmas,
 	 * so rmap can find non-COWed pages in child processes.
 	 */
+        #ifdef VENDOR_EDIT
+	/*wanghao@BSP.Kernel.Function 2019/10/10 add for avoid apk recursive fork*/
+	error = anon_vma_clone(vma, pvma);
+	if (error < 0)
+		return error;
+	else if (error > RECURSIVE_MAX_FORK_TIME) {
+		pr_err("[anon_vma_fork]%d: recursive fork more then 30 timges, pid is %d[%s]\n", __LINE__, get_current()->pid, get_current()->comm);
+		happend_times++;
+		fork_pid_child = get_current()->pid;
+		fork_pid_father = get_current()->parent->pid;
+		return -ENOMEM;
+	}
+	#else
 	error = anon_vma_clone(vma, pvma);
 	if (error)
 		return error;
+        #endif
 
 	/* An existing anon_vma has been reused, all done then. */
 	if (vma->anon_vma)
