@@ -1506,10 +1506,10 @@ static struct clk_branch gcc_aggre_ufs_phy_axi_clk = {
 	},
 };
 
-//static DEFINE_CLK_VOTER(ufs_phy_axi_emmc_vote_clk,
-//					gcc_aggre_ufs_phy_axi_clk, 0);
-//static DEFINE_CLK_VOTER(ufs_phy_axi_ufs_vote_clk,
-//					gcc_aggre_ufs_phy_axi_clk, 0);
+static DEFINE_CLK_VOTER(ufs_phy_axi_emmc_vote_clk,
+					gcc_aggre_ufs_phy_axi_clk, 0);
+static DEFINE_CLK_VOTER(ufs_phy_axi_ufs_vote_clk,
+					gcc_aggre_ufs_phy_axi_clk, 0);
 
 static struct clk_branch gcc_aggre_ufs_phy_axi_hw_ctl_clk = {
 	.halt_reg = 0x82024,
@@ -3786,8 +3786,8 @@ struct clk_hw *gcc_sdm845_hws[] = {
 	[MEASURE_ONLY_CNOC_CLK] = &measure_only_cnoc_clk.hw,
 	[MEASURE_ONLY_BIMC_CLK] = &measure_only_bimc_clk.hw,
 	[MEASURE_ONLY_IPA_2X_CLK] = &measure_only_ipa_2x_clk.hw,
-//	[UFS_PHY_AXI_EMMC_VOTE_CLK] = &ufs_phy_axi_emmc_vote_clk.hw,
-//	[UFS_PHY_AXI_UFS_VOTE_CLK] = &ufs_phy_axi_ufs_vote_clk.hw,
+	[UFS_PHY_AXI_EMMC_VOTE_CLK] = &ufs_phy_axi_emmc_vote_clk.hw,
+	[UFS_PHY_AXI_UFS_VOTE_CLK] = &ufs_phy_axi_ufs_vote_clk.hw,
 };
 
 static struct clk_regmap *gcc_sdm845_clocks[] = {
@@ -4069,8 +4069,8 @@ static const struct qcom_cc_desc gcc_sdm845_desc = {
 	.config = &gcc_sdm845_regmap_config,
 	.clks = gcc_sdm845_clocks,
 	.num_clks = ARRAY_SIZE(gcc_sdm845_clocks),
-	//.hwclks = gcc_sdm845_hws,
-	//.num_hwclks = ARRAY_SIZE(gcc_sdm845_hws),
+	.hwclks = gcc_sdm845_hws,
+	.num_hwclks = ARRAY_SIZE(gcc_sdm845_hws),
 	.resets = gcc_sdm845_resets,
 	.num_resets = ARRAY_SIZE(gcc_sdm845_resets),
 };
