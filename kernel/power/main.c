@@ -624,6 +624,17 @@ static struct attribute * g[] = {
 #ifdef CONFIG_FREEZER
 	&pm_freeze_timeout_attr.attr,
 #endif
+#ifdef VENDOR_EDIT
+/* OPPO 2012-11-05 heiwei Modify begin for add interface start reason and boot_mode begin */
+	&app_boot_attr.attr,
+	&startup_mode_attr.attr,
+/* OPPO 2012-11-05 heiwei Modify begin for add interface start reason and boot_mode end */
+#endif //VENDOR_EDIT
+#ifdef VENDOR_EDIT
+/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
+	&pon_reason_attr.attr,
+	&poff_reason_attr.attr,
+#endif /*VENDOR_EDIT*/
 	NULL,
 };
 
